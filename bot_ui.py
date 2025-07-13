@@ -1,7 +1,7 @@
 import streamlit as st
 import x_api  
-import openai   
-import json
+from llm_utils import generate_reply  
+
 
 if "tweets" not in st.session_state:
     st.session_state.tweets = []
@@ -14,7 +14,6 @@ st.title("_X_ :green[Mention Tracker] + :blue[Auto Responder]")
 
 query = st.text_input("Enter keyword or @handle to monitor:")
 reply_style = st.selectbox("Choose reply style", ["Friendly", "Professional", "Funny"])
-
 st.markdown("---")
 
 if st.button("Start Monitoring"):
@@ -36,16 +35,11 @@ if st.button("Reply All"):
         with st.spinner("Generating replies..."):
             for tweet in st.session_state.tweets:
                 if tweet["id"] not in st.session_state.replies:
-                    prompt = f"Tweet: {tweet['content']}\nGenerate a {reply_style.lower()} reply."
-                    response = openai.ChatCompletion.create(
-                        model="gpt-4",
-                        messages=[{"role": "user", "content": prompt}]
-                    )
-                    st.session_state.replies[tweet["id"]] = response.choices[0].message["content"].strip()
+                    reply = generate_reply(tweet["content"], reply_style)
+                    st.session_state.replies[tweet["id"]] = reply
         st.success("Replies generated!")
 
 st.markdown("---")
-
 if st.session_state.tweets:
     st.subheader("Recent Tweets")
     for tweet in st.session_state.tweets:
@@ -54,7 +48,6 @@ if st.session_state.tweets:
             st.markdown(f"**Tweet:** {tweet['content']}")
             st.markdown(f"[🔗 View Tweet]({tweet['url']})")
 
-            # Ai reply display
             if tweet["id"] in st.session_state.replies:
                 st.success(f"💬 AI Reply: {st.session_state.replies[tweet['id']]}")
             st.markdown("---")
