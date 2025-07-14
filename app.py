@@ -1,6 +1,7 @@
 import streamlit as st
 import x_api  
 from llm_utils import generate_reply  
+from test1 import get_recent_tweets
 
 if "tweets" not in st.session_state:
     st.session_state.tweets = []
@@ -19,7 +20,8 @@ st.markdown("---")
 
 if st.button("Start Monitoring"):
     if query:
-        st.session_state.tweets = x_api.get_recent_tweets(query, max_length)
+        # st.session_state.tweets = x_api.get_recent_tweets(query, max_length)
+        st.session_state.tweets = get_recent_tweets(query, max_length)
         st.session_state.monitoring = True
         st.success("Monitoring started.")
     else:
