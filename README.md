@@ -40,6 +40,12 @@ Create a `.env` file in the project root and add your API keys:
 ```env
 BEARER_TOKEN=your_twitter_bearer_token
 OPENAI_API_KEY=your_openai_api_key
+ACCESS_TOKEN=your_twitter_access_token
+ACCESS_TOKEN_SECRET=""
+CLIENT_ID=""
+CLIENT_SECRET=""
+CONSUMER_KEY=""
+CONSUMER_SECRET=""
 ```
 
 ### 3. Install Dependencies
