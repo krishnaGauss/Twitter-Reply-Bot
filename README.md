@@ -67,8 +67,9 @@ The application will open in your browser at `http://localhost:8501`
 ### Twitter (X) API
 1. Go to [Twitter Developer Portal](https://developer.twitter.com/)
 2. Create a new app or use existing one
-3. Generate a Bearer Token, Consumer Key, Consumer Key Secret, Access Token, Access Token Secret
-4. Add it to your `.env` file as `BEARER_TOKEN`, `CONSUMER_KEY`, `CONSUMER_KEY_SECRET`, `ACCESS_TOKEN`, `ACCESS_TOKEN_SECRET`
+3. Provide oAuth2.0 Permissions for the app by going to User Authentication Settings.
+4. Generate a Bearer Token, Consumer Key, Consumer Key Secret, Access Token, Access Token Secret, Client Id, Client Secret
+5. Add it to your `.env` file as `BEARER_TOKEN`, `CONSUMER_KEY`, `CONSUMER_KEY_SECRET`, `ACCESS_TOKEN`, `ACCESS_TOKEN_SECRET`, `CLIENT_ID`, `CLIENT_SECRET`
 
 ### OpenAI API
 1. Visit [OpenAI Platform](https://platform.openai.com/)
