@@ -18,6 +18,7 @@ x-mention-tracker/
 ├── app.py              # Main Streamlit application
 ├── x_api.py            # Twitter API wrapper using Tweepy
 ├── tweets.json         # Saved recent tweets (auto-generated)
+├── llm_utils.py        # Generating replies for tweets
 ├── requirements.txt    # Python dependencies
 ├── .env               # API keys (create this file)
 └── README.md          # This file
@@ -66,8 +67,8 @@ The application will open in your browser at `http://localhost:8501`
 ### Twitter (X) API
 1. Go to [Twitter Developer Portal](https://developer.twitter.com/)
 2. Create a new app or use existing one
-3. Generate a Bearer Token
-4. Add it to your `.env` file as `BEARER_TOKEN`
+3. Generate a Bearer Token, Consumer Key, Consumer Key Secret, Access Token, Access Token Secret
+4. Add it to your `.env` file as `BEARER_TOKEN`, `CONSUMER_KEY`, `CONSUMER_KEY_SECRET`, `ACCESS_TOKEN`, `ACCESS_TOKEN_SECRET`
 
 ### OpenAI API
 1. Visit [OpenAI Platform](https://platform.openai.com/)

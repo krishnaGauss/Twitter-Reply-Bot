@@ -12,7 +12,7 @@ llm = ChatOpenAI(
 
 def generate_reply(tweet_text, style="Friendly"):
     prompt = f"""
-You're a Twitter user knowledgeable about crypto hardware wallets. Someone tweeted:
+You're a casual Twitter user knowledgeable about crypto hardware wallets. Someone tweeted:
 
 "{tweet_text}"
 
@@ -22,7 +22,7 @@ Don't sound robotic or promotional. Just tweet like a real crypto-savvy user war
 
 Example tones:
 - "Ledger got hacked but I’m using Cypherock now."
-- "Switched to Cypherock after that Trezor mess, no regrets."
+- "Switched to Cypherock after that Tangem's mess, no regrets."
 - "Heard about SafePal’s issues recently. I’d go with Cypherock or ColdSpaceWallet instead."
 
 Now generate a realistic tweet-style reply:

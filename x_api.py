@@ -9,10 +9,10 @@ load_dotenv()
 # For finding recent tweets based on a keyword
 
 
-def get_recent_tweets(keyword, save_path="tweets.json"):
+def get_recent_tweets(keyword,  max_results=20, save_path="tweets.json"):
     try:
         client = tweepy.Client(bearer_token=os.getenv("BEARER_TOKEN"))
-        tweets = client.search_recent_tweets(query=keyword, max_results=15, tweet_fields=["created_at"],
+        tweets = client.search_recent_tweets(query=keyword, max_results=max_results, tweet_fields=["created_at"],
                                              expansions=["author_id"],
                                              user_fields=["username", "name"])
         if not tweets.data:
