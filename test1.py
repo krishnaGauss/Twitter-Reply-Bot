@@ -10,22 +10,18 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 class HumanTweetFilter:
-    """Advanced filter to identify genuine, human, non-promotional tweets suitable for replies"""
     
     def __init__(self):
         # Promotional/spam indicators
         self.promotional_keywords = [
-            # Direct sales
             'buy now', 'limited time', 'sale', 'discount', 'promo code', 'coupon',
             'free shipping', 'order now', 'click here', 'sign up now', 'register now',
             'get yours', 'don\'t miss out', 'exclusive offer', 'special deal',
             'flash sale', 'today only', 'hurry up', 'act fast', 'while supplies last',
             
-            # Affiliate/sponsored
             'affiliate', 'sponsored', 'ad', '#ad', 'paid partnership', 'gifted',
             'promo', 'collaboration', 'brand partner', 'ambassador',
             
-            # Giveaways/contests
             'giveaway', 'contest', 'win', 'winner', 'prize', 'raffle',
             'follow and retweet', 'rt to win', 'tag friends', 'enter to win',
             
@@ -37,11 +33,11 @@ class HumanTweetFilter:
         
         # Bot/automated content patterns
         self.bot_patterns = [
-            r'^(good morning|gm|good night|gn)\s*[!.]*\s*$',  # Generic greetings
-            r'^(thanks?|thank you)\s+(for\s+the\s+)?(follow|rt|retweet)\s*[!.]*\s*$',  # Auto-thanks
-            r'^\d+/\d+$',  # Just numbers (thread counters)
-            r'^(breaking|update|alert):\s*$',  # Empty breaking news
-            r'^(this|that|it)\s+(is|was)\s+(amazing|great|awesome|incredible)\s*[!.]*\s*$',  # Generic praise
+            r'^(good morning|gm|good night|gn)\s*[!.]*\s*$',  
+            r'^(thanks?|thank you)\s+(for\s+the\s+)?(follow|rt|retweet)\s*[!.]*\s*$',  
+            r'^\d+/\d+$',  
+            r'^(breaking|update|alert):\s*$',  
+            r'^(this|that|it)\s+(is|was)\s+(amazing|great|awesome|incredible)\s*[!.]*\s*$',  
             r'^(wow|omg|amazing|incredible)\s*[!.]*\s*$',  # Single word reactions
             r'^(yes|no|maybe|true|false)\s*[!.]*\s*$',  # Single word responses
         ]
@@ -62,28 +58,24 @@ class HumanTweetFilter:
             'frustrated', 'excited', 'disappointed', 'surprised', 'confused',
             'worried', 'happy', 'annoyed', 'curious', 'concerned',
             
-            # Uncertainty/hesitation (very human)
             'not sure', 'maybe', 'probably', 'i guess', 'i suppose',
             'could be wrong', 'might be', 'seems like', 'looks like',
             
-            # Questions and engagement
             'why', 'how', 'what', 'when', 'where', 'who',
             'explain', 'understand', 'clarify', 'elaborate'
         ]
         
-        # Genuine content patterns
         self.genuine_patterns = [
             r'\b(just|recently|yesterday|today|this morning)\s+(experienced|tried|noticed|saw|found)\b',
             r'\b(has anyone|does anyone|can someone|would anyone)\b',
             r'\b(i\'m|i am)\s+(thinking|wondering|curious|confused|frustrated)\b',
-            r'\?.*\?',  # Multiple questions (shows engagement)
-            r'\b(update|edit|correction):\s*',  # Human corrections
-            r'\b(tbh|honestly|ngl|imo|imho)\b',  # Casual honesty markers
+            r'\?.*\?',  
+            r'\b(update|edit|correction):\s*',  
+            r'\b(tbh|honestly|ngl|imo|imho)\b',  
         ]
         
-        # Reply-worthy content indicators
+        
         self.reply_worthy_indicators = [
-            # Problems/issues (great for helpful replies)
             'having trouble', 'problem with', 'issue with', 'can\'t figure out',
             'not working', 'broken', 'failed', 'error', 'bug',
             
@@ -104,12 +96,10 @@ class HumanTweetFilter:
         """Check if tweet is promotional/spam content"""
         text = tweet_data['content'].lower()
         
-        # Check promotional keywords
         promo_score = sum(1 for keyword in self.promotional_keywords if keyword in text)
         if promo_score >= 2:
             return True
         
-        # Check for promotional patterns
         promo_patterns = [
             r'\b\d+%\s*(off|discount|sale)\b',
             r'\$\d+.*\b(off|discount|sale)\b',
@@ -122,7 +112,6 @@ class HumanTweetFilter:
         if any(re.search(pattern, text, re.IGNORECASE) for pattern in promo_patterns):
             return True
         
-        # Too many hashtags (spam indicator)
         if len(re.findall(r'#\w+', text)) > 4:
             return True
         
